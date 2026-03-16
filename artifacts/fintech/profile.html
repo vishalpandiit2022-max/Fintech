@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Profile – FinTech</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+<div class="app-layout">
+
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <div class="logo-icon">💹</div>
+      <span class="logo-text">FinTech</span>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="/dashboard"  class="nav-item"><span class="nav-icon">🏠</span><span>Dashboard</span></a>
+      <a href="/expenses"   class="nav-item"><span class="nav-icon">💳</span><span>Expenses</span></a>
+      <a href="/savings"    class="nav-item"><span class="nav-icon">🎯</span><span>Savings Goals</span></a>
+      <a href="/advisory"   class="nav-item"><span class="nav-icon">🤖</span><span>Investment Advisory</span></a>
+      <a href="/profile"    class="nav-item"><span class="nav-icon">👤</span><span>Profile</span></a>
+    </nav>
+    <div class="sidebar-bottom">
+      <button class="logout-btn" onclick="doLogout()"><span>🚪</span><span>Logout</span></button>
+    </div>
+  </aside>
+
+  <div class="main-content">
+    <header class="topbar">
+      <div class="topbar-left"><h1>Profile</h1></div>
+      <div class="topbar-right">
+        <div class="search-bar"><span>🔍</span><input type="text" placeholder="Search..." /></div>
+        <div class="user-avatar" id="userAvatar" title="Profile">?</div>
+      </div>
+    </header>
+    <main class="page-content">
+
+      <div style="max-width:600px">
+
+        <div class="card" style="margin-bottom:1.5rem;display:flex;align-items:center;gap:1.5rem">
+          <div class="profile-avatar" id="profileAvatar">?</div>
+          <div>
+            <div class="profile-name" id="profileName">–</div>
+            <div class="profile-email" id="profileEmail">–</div>
+          </div>
+        </div>
+
+        <div class="card" style="margin-bottom:1.5rem">
+          <h3 class="section-title">Account Information</h3>
+          <div class="info-row">
+            <span class="info-label">Full Name</span>
+            <span class="info-value" id="infoName">–</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Email</span>
+            <span class="info-value" id="infoEmail">–</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Monthly Salary</span>
+            <span class="info-value" id="infoSalary">–</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3 class="section-title">Update Monthly Salary</h3>
+          <div class="alert alert-error" id="salaryError"></div>
+          <div class="alert alert-success" id="salarySuccess"></div>
+          <form id="salaryForm">
+            <div class="form-group">
+              <label for="newSalary">New Monthly Salary (₹)</label>
+              <input type="number" id="newSalary" placeholder="e.g. 75000" min="0" step="1000" required />
+            </div>
+            <button type="submit" class="btn btn-primary btn-sm">Update Salary</button>
+          </form>
+        </div>
+
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<script>
+document.querySelectorAll('.nav-item').forEach(a => {
+  if (a.getAttribute('href') === window.location.pathname) a.classList.add('active');
+});
+async function doLogout() {
+  await fetch('/logout', { method: 'POST' });
+  window.location.href = '/login';
+}
+async function loadUserAvatar() {
+  try {
+    const res = await fetch('/user', { headers: { 'Accept': 'application/json' } });
+    if (res.ok) {
+      const u = await res.json();
+      const el = document.getElementById('userAvatar');
+      if (el) el.textContent = u.name.charAt(0).toUpperCase();
+    } else { window.location.href = '/login'; }
+  } catch {}
+}
+loadUserAvatar();
+</script>
+<script src="/js/profile.js"></script>
+</body>
+</html>

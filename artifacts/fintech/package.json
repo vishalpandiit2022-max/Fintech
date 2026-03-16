@@ -3,8 +3,6 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "dev": "python3 app.py",
-    "build": "echo 'Flask app - no build step needed'",
-    "typecheck": "echo 'Flask app - no typecheck needed'"
+    "dev": "python3 backend/app.py"
   }
 }

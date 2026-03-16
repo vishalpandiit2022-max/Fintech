@@ -2,12 +2,13 @@ import os
 import sqlite3
 import hashlib
 import secrets
-from flask import Flask, render_template, request, jsonify, session, redirect, url_for
+from flask import Flask, send_from_directory, request, jsonify, session, redirect
 
-app = Flask(__name__)
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+DB_PATH = os.path.join(ROOT, "database.db")
+
+app = Flask(__name__, static_folder=ROOT, static_url_path="")
 app.secret_key = os.environ.get("SECRET_KEY", "fintech-super-secret-2024")
-
-DB_PATH = os.path.join(os.path.dirname(__file__), "database.db")
 
 
 def get_db():
@@ -67,71 +68,65 @@ def verify_password(stored, provided):
     return hashlib.sha256((salt + provided).encode()).hexdigest() == hashed
 
 
-def wants_json():
-    """Check if caller wants JSON (fetch/XHR vs browser navigation)."""
-    accept = request.headers.get("Accept", "")
-    return "application/json" in accept or request.is_json
-
-
-# ─── Page routes ────────────────────────────────────────────────────────────
+# ─── Page routes ─────────────────────────────────────────────────────────────
 
 @app.route("/")
 def index():
     if "user_id" in session:
-        return redirect(url_for("dashboard"))
-    return redirect(url_for("login_page"))
+        return redirect("/dashboard")
+    return redirect("/login")
 
 
 @app.route("/login")
 def login_page():
     if "user_id" in session:
-        return redirect(url_for("dashboard"))
-    return render_template("login.html")
+        return redirect("/dashboard")
+    return send_from_directory(ROOT, "login.html")
 
 
 @app.route("/signup")
 def signup_page():
     if "user_id" in session:
-        return redirect(url_for("dashboard"))
-    return render_template("signup.html")
+        return redirect("/dashboard")
+    return send_from_directory(ROOT, "signup.html")
 
 
 @app.route("/dashboard")
 def dashboard():
     if "user_id" not in session:
-        return redirect(url_for("login_page"))
-    return render_template("dashboard.html")
+        return redirect("/login")
+    return send_from_directory(ROOT, "dashboard.html")
 
 
 @app.route("/expenses")
 def expenses_page():
     if "user_id" not in session:
-        return redirect(url_for("login_page"))
-    return render_template("expenses.html")
+        return redirect("/login")
+    return send_from_directory(ROOT, "expenses.html")
 
 
 @app.route("/savings")
 def savings_page():
     if "user_id" not in session:
-        return redirect(url_for("login_page"))
-    return render_template("savings.html")
+        return redirect("/login")
+    return send_from_directory(ROOT, "savings.html")
 
 
 @app.route("/advisory")
 def advisory_page():
     if "user_id" not in session:
-        return redirect(url_for("login_page"))
-    return render_template("advisory.html")
+        return redirect("/login")
+    return send_from_directory(ROOT, "advisory.html")
 
 
 @app.route("/profile")
 def profile_page():
     if "user_id" not in session:
-        return redirect(url_for("login_page"))
-    return render_template("profile.html")
+        return redirect("/login")
+    return send_from_directory(ROOT, "profile.html")
 
 
-# ─── Auth API routes ─────────────────────────────────────────────────────────
+# ─── Auth API ─────────────────────────────────────────────────────────────────
 
 @app.route("/signup", methods=["POST"])
 def api_signup():
@@ -204,7 +199,6 @@ def api_logout():
 def api_get_user():
     if "user_id" not in session:
         return jsonify({"error": "Not authenticated"}), 401
-
     conn = get_db()
     try:
         user = conn.execute(
@@ -222,12 +216,10 @@ def api_get_user():
 def api_update_salary():
     if "user_id" not in session:
         return jsonify({"error": "Not authenticated"}), 401
-
     data = request.get_json()
     salary = data.get("salary")
     if salary is None:
         return jsonify({"error": "salary is required"}), 400
-
     conn = get_db()
     try:
         conn.execute("UPDATE users SET salary = ? WHERE id = ?", (float(salary), session["user_id"]))
@@ -243,7 +235,6 @@ def api_update_salary():
 def api_get_expenses():
     if "user_id" not in session:
         return jsonify({"error": "Not authenticated"}), 401
-
     conn = get_db()
     try:
         rows = conn.execute(
@@ -259,7 +250,6 @@ def api_get_expenses():
 def api_create_expense():
     if "user_id" not in session:
         return jsonify({"error": "Not authenticated"}), 401
-
     data = request.get_json()
     description = data.get("description", "").strip()
     category = data.get("category", "").strip()
@@ -276,9 +266,8 @@ def api_create_expense():
             (session["user_id"], description, category, float(amount), date)
         )
         conn.commit()
-        expense_id = cursor.lastrowid
         return jsonify({
-            "id": expense_id, "user_id": session["user_id"],
+            "id": cursor.lastrowid, "user_id": session["user_id"],
             "description": description, "category": category,
             "amount": float(amount), "date": date
         }), 201
@@ -290,7 +279,6 @@ def api_create_expense():
 def api_delete_expense(expense_id):
     if "user_id" not in session:
         return jsonify({"error": "Not authenticated"}), 401
-
     conn = get_db()
     try:
         row = conn.execute(
@@ -312,7 +300,6 @@ def api_delete_expense(expense_id):
 def api_get_savings_goals():
     if "user_id" not in session:
         return jsonify({"error": "Not authenticated"}), 401
-
     conn = get_db()
     try:
         rows = conn.execute(
@@ -328,7 +315,6 @@ def api_get_savings_goals():
 def api_create_savings_goal():
     if "user_id" not in session:
         return jsonify({"error": "Not authenticated"}), 401
-
     data = request.get_json()
     goal_name = data.get("goal_name", "").strip()
     target_amount = data.get("target_amount")
@@ -344,9 +330,8 @@ def api_create_savings_goal():
             (session["user_id"], goal_name, float(target_amount), int(months))
         )
         conn.commit()
-        goal_id = cursor.lastrowid
         return jsonify({
-            "id": goal_id, "user_id": session["user_id"],
+            "id": cursor.lastrowid, "user_id": session["user_id"],
             "goal_name": goal_name, "target_amount": float(target_amount), "months": int(months)
         }), 201
     finally:
@@ -357,7 +342,6 @@ def api_create_savings_goal():
 def api_delete_savings_goal(goal_id):
     if "user_id" not in session:
         return jsonify({"error": "Not authenticated"}), 401
-
     conn = get_db()
     try:
         row = conn.execute(

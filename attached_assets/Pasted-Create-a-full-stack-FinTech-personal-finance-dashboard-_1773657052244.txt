@@ -1,0 +1,226 @@
+Create a full-stack FinTech personal finance dashboard web application from scratch.
+
+Tech Stack:
+Frontend: HTML, CSS, JavaScript (React with Vite)
+Backend: Python (Flask)
+Database: SQLite
+UI Theme: Dark fintech dashboard design
+
+PROJECT NAME:
+FinTech
+
+FEATURES:
+
+1. Authentication System
+   Create Login and Signup pages.
+
+Signup fields:
+
+* Full Name
+* Email
+* Password
+* Monthly Salary (₹)
+
+Login fields:
+
+* Email
+* Password
+
+Backend API:
+POST /api/signup
+POST /api/login
+
+Passwords must be hashed using bcrypt.
+
+Each user must have their own financial data.
+
+---
+
+2. Dashboard Page
+
+Show a financial overview with cards:
+
+* Monthly Salary
+* Total Expenses
+* Net Savings
+* Savings Rate %
+
+Formula:
+Net Savings = Salary − Total Expenses
+Savings Rate = (Savings / Salary) × 100
+
+Add a button:
+
+* Add Expense
+
+---
+
+3. Expense Tracker
+
+Allow users to add expenses with:
+
+* Description
+* Category
+* Amount
+* Date
+
+Categories:
+Food
+Transport
+Shopping
+Bills
+Entertainment
+Other
+
+Each expense must be stored with the user's ID.
+
+API:
+GET /api/expenses
+POST /api/expenses
+
+---
+
+4. Savings Goals Page
+
+Create a page called:
+Savings Goals
+
+User can create a savings goal with:
+
+* Goal Name
+* Target Amount (₹)
+* Timeframe in Months (slider)
+
+IMPORTANT:
+The Target Amount input must allow:
+
+* manual typing
+* arrow increment/decrement
+
+Example:
+
+<input type="number" min="1" step="1000">
+
+After entering values show:
+
+Monthly Saving Required
+Target Progress Chart
+
+---
+
+5. Investment Advisory Page
+
+Create an AI-style page called:
+
+Investment Advisory
+
+Show a card:
+
+Title:
+AI Spending Analysis
+
+Description:
+"I can analyze your spending and provide financial suggestions."
+
+Add:
+Button → Analyze My Spending
+
+Below it add a chat input box:
+
+Placeholder:
+Ask a question about your spending...
+
+---
+
+6. Profile Page
+
+Show user info:
+
+* Name
+* Email
+* Monthly Salary
+
+Allow updating salary.
+
+API:
+PUT /api/user/salary
+
+---
+
+7. Multi-User Data System
+
+Each user must have separate data.
+
+Database tables:
+
+Users:
+id
+name
+email
+password
+monthly_salary
+
+Expenses:
+id
+user_id
+description
+category
+amount
+date
+
+SavingsGoals:
+id
+user_id
+goal_name
+target_amount
+months
+
+When a new user signs up:
+their dashboard must start empty.
+
+When an existing user logs back in:
+their original data must appear.
+
+---
+
+8. Sidebar Navigation
+
+Dashboard
+Investment Advisory
+Savings Goals
+Profile
+Logout
+
+Remove any "Finance Tips" page.
+
+---
+
+9. UI Design
+
+Dark modern fintech dashboard.
+
+Use cards with rounded corners.
+
+Sidebar on the left.
+
+Top bar with search and profile avatar.
+
+Currency format should display ₹.
+
+---
+
+10. Run Instructions
+
+Backend runs on Flask server.
+
+Frontend runs on Vite.
+
+Both should run together in Replit and show the app preview.
+
+---
+
+After generating the project:
+
+* install dependencies
+* start the server
+* confirm the preview loads correctly.

@@ -1,0 +1,129 @@
+Refactor the entire FinTech Dashboard project to use only HTML, CSS, JavaScript, and Python.
+
+This project is a college assignment and must strictly follow this technology stack:
+
+Frontend:
+
+* HTML
+* CSS
+* Vanilla JavaScript
+
+Backend:
+
+* Python (Flask)
+
+The project must not contain React, TypeScript, Vite, Next.js, or any frontend frameworks.
+
+Tasks:
+
+1. Remove React and TypeScript completely.
+   Delete all files and dependencies related to:
+
+* React
+* TypeScript
+* Vite
+* .tsx files
+* .ts files
+* tsconfig.json
+* vite.config.ts
+* React components
+* src folder if it contains React code.
+
+2. Rebuild the frontend using only HTML, CSS, and JavaScript.
+
+Create this project structure:
+
+project/
+│
+├── index.html
+├── login.html
+├── signup.html
+├── dashboard.html
+├── expenses.html
+├── savings.html
+├── advisory.html
+├── profile.html
+│
+├── css/
+│   └── style.css
+│
+├── js/
+│   ├── login.js
+│   ├── signup.js
+│   ├── dashboard.js
+│   ├── expenses.js
+│   ├── savings.js
+│   ├── advisory.js
+│   └── profile.js
+│
+└── backend/
+└── app.py
+
+3. Each HTML page must load CSS and JavaScript like this:
+
+<link rel="stylesheet" href="css/style.css">
+<script src="js/file.js"></script>
+
+4. Implement navigation between pages using normal HTML links.
+
+5. Use vanilla JavaScript to:
+
+* send API requests using fetch()
+* handle login and signup
+* load user expenses
+* calculate savings
+* update dashboard values.
+
+6. Keep the Python Flask backend and create routes:
+
+POST /signup
+POST /login
+GET /expenses
+POST /expenses
+GET /user
+PUT /salary
+
+7. Store data in SQLite.
+
+Database tables:
+
+users
+id
+name
+email
+password
+salary
+
+expenses
+id
+user_id
+description
+category
+amount
+date
+
+savings_goals
+id
+user_id
+goal_name
+target_amount
+months
+
+8. Ensure all features still work:
+
+* User signup
+* User login
+* Dashboard financial overview
+* Add expenses
+* Savings goal calculator
+* Investment advisory page
+* Profile page
+
+9. Ensure the final project runs correctly in Replit using Flask as the backend server.
+
+10. After refactoring, verify the repository only contains these languages:
+
+HTML
+CSS
+JavaScript
+Python

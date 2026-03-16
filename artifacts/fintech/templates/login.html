@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login – FinTech</title>
+  <link rel="stylesheet" href="/static/css/style.css" />
+</head>
+<body>
+<div class="auth-page">
+  <div class="auth-hero">
+    <div class="auth-hero-content">
+      <h1>Master your wealth with<br><span>intelligent insights.</span></h1>
+      <p>Join thousands managing their expenses, growing their savings, and investing smarter.</p>
+    </div>
+  </div>
+
+  <div class="auth-form-side">
+    <div class="auth-box">
+      <div class="auth-logo">
+        <div class="logo-icon">💹</div>
+        <span class="logo-text">FinTech</span>
+      </div>
+      <h2>Welcome back</h2>
+      <p class="subtitle">Sign in to your account to continue</p>
+
+      <div class="alert alert-error" id="errorMsg"></div>
+
+      <form id="loginForm">
+        <div class="form-group">
+          <label for="email">Email address</label>
+          <input type="email" id="email" placeholder="you@example.com" required />
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" placeholder="••••••••" required />
+        </div>
+        <button type="submit" class="btn btn-primary" id="loginBtn">Sign In</button>
+      </form>
+      <p class="auth-link">Don't have an account? <a href="/signup">Sign up</a></p>
+    </div>
+  </div>
+</div>
+<script src="/static/js/login.js"></script>
+</body>
+</html>

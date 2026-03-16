@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+{% set active = "dashboard" %}
+{% block title %}Dashboard – FinTech{% endblock %}
+{% block page_title %}Dashboard{% endblock %}
+
+{% block content %}
+<!-- Stats Row -->
+<div class="stat-grid" id="statsGrid">
+  <div class="stat-card blue">
+    <div class="stat-label blue"><span class="icon">💰</span> Monthly Salary</div>
+    <div class="stat-value" id="statSalary">₹–</div>
+    <div class="stat-sub">Your monthly income</div>
+  </div>
+  <div class="stat-card red">
+    <div class="stat-label red"><span class="icon">💳</span> Total Expenses</div>
+    <div class="stat-value" id="statExpenses">₹–</div>
+    <div class="stat-sub">Spent this period</div>
+  </div>
+  <div class="stat-card green">
+    <div class="stat-label green"><span class="icon">🏦</span> Net Savings</div>
+    <div class="stat-value" id="statSavings">₹–</div>
+    <div class="stat-sub">Salary – Expenses</div>
+  </div>
+  <div class="stat-card purple">
+    <div class="stat-label purple"><span class="icon">📊</span> Savings Rate</div>
+    <div class="stat-value" id="statRate">–%</div>
+    <div class="stat-sub">Of monthly income saved</div>
+  </div>
+</div>
+
+<!-- Recent Expenses + Add Button -->
+<div class="page-header">
+  <div>
+    <h2>Recent Expenses</h2>
+    <p>Your latest 5 transactions</p>
+  </div>
+  <button class="btn btn-primary btn-sm" onclick="openModal()">+ Add Expense</button>
+</div>
+
+<div class="card">
+  <div class="expenses-list" id="recentExpenses">
+    <div class="loading">Loading...</div>
+  </div>
+</div>
+
+<!-- Add Expense Modal -->
+<div class="modal-overlay" id="expenseModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>Add Expense</h3>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="alert alert-error" id="modalError"></div>
+    <form id="addExpenseForm">
+      <div class="form-group">
+        <label>Description</label>
+        <input type="text" id="expDesc" placeholder="e.g. Lunch, Uber ride..." required />
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Category</label>
+          <select id="expCat" required>
+            <option value="">Select category</option>
+            <option value="Food">🍽️ Food</option>
+            <option value="Transport">🚗 Transport</option>
+            <option value="Shopping">🛍️ Shopping</option>
+            <option value="Bills">📋 Bills</option>
+            <option value="Entertainment">🎮 Entertainment</option>
+            <option value="Other">📦 Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Amount (₹)</label>
+          <input type="number" id="expAmount" placeholder="0" min="1" step="0.01" required />
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Date</label>
+        <input type="date" id="expDate" required />
+      </div>
+      <div class="flex gap-2 mt-2">
+        <button type="button" class="btn btn-secondary w-full" onclick="closeModal()">Cancel</button>
+        <button type="submit" class="btn btn-primary w-full" id="addBtn">Add Expense</button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/js/dashboard.js"></script>
+{% endblock %}

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign Up – FinTech</title>
+  <link rel="stylesheet" href="/static/css/style.css" />
+</head>
+<body>
+<div class="auth-page">
+  <div class="auth-hero">
+    <div class="auth-hero-content">
+      <h1>Start your financial<br><span>journey today.</span></h1>
+      <p>Track expenses, set savings goals, and get smart investment insights — all in one place.</p>
+    </div>
+  </div>
+
+  <div class="auth-form-side">
+    <div class="auth-box">
+      <div class="auth-logo">
+        <div class="logo-icon">💹</div>
+        <span class="logo-text">FinTech</span>
+      </div>
+      <h2>Create account</h2>
+      <p class="subtitle">Fill in your details to get started</p>
+
+      <div class="alert alert-error" id="errorMsg"></div>
+      <div class="alert alert-success" id="successMsg"></div>
+
+      <form id="signupForm">
+        <div class="form-group">
+          <label for="name">Full Name</label>
+          <input type="text" id="name" placeholder="Your full name" required />
+        </div>
+        <div class="form-group">
+          <label for="email">Email address</label>
+          <input type="email" id="email" placeholder="you@example.com" required />
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" placeholder="Min 6 characters" required minlength="6" />
+        </div>
+        <div class="form-group">
+          <label for="salary">Monthly Salary (₹)</label>
+          <input type="number" id="salary" placeholder="e.g. 50000" min="0" step="1000" required />
+        </div>
+        <button type="submit" class="btn btn-primary" id="signupBtn">Create Account</button>
+      </form>
+      <p class="auth-link">Already have an account? <a href="/login">Sign in</a></p>
+    </div>
+  </div>
+</div>
+<script src="/static/js/signup.js"></script>
+</body>
+</html>

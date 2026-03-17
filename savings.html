@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Savings Goals – FinTech</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+<div class="app-layout">
+
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <div class="logo-icon">💹</div>
+      <span class="logo-text">FinTech</span>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="dashboard.html" class="nav-item"><span class="nav-icon">🏠</span><span>Dashboard</span></a>
+      <a href="expenses.html"  class="nav-item"><span class="nav-icon">💳</span><span>Expenses</span></a>
+      <a href="savings.html"   class="nav-item"><span class="nav-icon">🎯</span><span>Savings Goals</span></a>
+      <a href="advisory.html"  class="nav-item"><span class="nav-icon">🤖</span><span>Investment Advisory</span></a>
+      <a href="profile.html"   class="nav-item"><span class="nav-icon">👤</span><span>Profile</span></a>
+    </nav>
+    <div class="sidebar-bottom">
+      <button class="logout-btn" onclick="doLogout()"><span>🚪</span><span>Logout</span></button>
+    </div>
+  </aside>
+
+  <div class="main-content">
+    <header class="topbar">
+      <div class="topbar-left"><h1>Savings Goals</h1></div>
+      <div class="topbar-right">
+        <div class="search-bar"><span>🔍</span><input type="text" placeholder="Search..." /></div>
+        <div class="user-avatar" id="userAvatar">?</div>
+      </div>
+    </header>
+    <main class="page-content">
+
+      <div class="page-header">
+        <div>
+          <h2>Savings Goals</h2>
+          <p>Plan and track your financial goals</p>
+        </div>
+      </div>
+
+      <div class="card" style="margin-bottom:1.5rem">
+        <h3 class="section-title">Create New Goal</h3>
+        <div class="alert alert-error" id="formError"></div>
+        <form id="goalForm">
+          <div class="grid-2">
+            <div class="form-group">
+              <label>Goal Name</label>
+              <input type="text" id="goalName" placeholder="e.g. Emergency Fund, Dream Vacation..." required />
+            </div>
+            <div class="form-group">
+              <label>Target Amount (₹)</label>
+              <input type="number" id="targetAmount" placeholder="e.g. 100000" min="1" step="1000" required />
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Timeframe: <strong id="monthsLabel">12 months</strong></label>
+            <div class="slider-container">
+              <input type="range" id="months" class="slider" min="1" max="60" value="12" />
+              <div class="slider-label"><span>1 month</span><span>60 months</span></div>
+            </div>
+          </div>
+          <div class="monthly-required" id="monthlyPreview">
+            <p>Monthly saving required:</p>
+            <div class="amount" id="monthlyAmount">₹0</div>
+          </div>
+          <button type="submit" class="btn btn-primary btn-sm btn-inline mt-2">Save Goal</button>
+        </form>
+      </div>
+
+      <h3 class="section-title">Your Goals</h3>
+      <div class="goals-grid" id="goalsList">
+        <div class="loading">Loading goals...</div>
+      </div>
+
+    </main>
+  </div>
+</div>
+<script src="js/savings.js"></script>
+</body>
+</html>

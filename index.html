@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FinTech – Personal Finance Dashboard</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+<div class="auth-page">
+  <div class="auth-hero">
+    <div class="auth-hero-content">
+      <h1>Master your wealth with<br><span>intelligent insights.</span></h1>
+      <p>Track expenses, set savings goals, and get smart investment guidance — all in one place, completely free.</p>
+    </div>
+  </div>
+
+  <div class="auth-form-side">
+    <div class="auth-box">
+      <div class="auth-logo">
+        <div class="logo-icon">💹</div>
+        <span class="logo-text">FinTech</span>
+      </div>
+
+      <!-- Returning user view (shown when localStorage has user data) -->
+      <div id="returningView" style="display:none">
+        <h2>Welcome back!</h2>
+        <p class="subtitle">Continue to your dashboard</p>
+        <div class="card" style="margin-bottom:1.5rem;text-align:center;padding:2rem">
+          <div id="returnAvatar" style="width:64px;height:64px;background:linear-gradient(135deg,#06b6d4,#8b5cf6);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.8rem;font-weight:700;color:#fff;margin:0 auto 1rem"></div>
+          <div id="returnName"  style="font-size:1.2rem;font-weight:700;color:#fff;margin-bottom:.25rem"></div>
+          <div id="returnEmail" style="font-size:.9rem;color:var(--text2)"></div>
+        </div>
+        <a href="dashboard.html" class="btn btn-primary" style="display:flex;margin-bottom:1rem">Go to Dashboard →</a>
+        <button onclick="clearUser()" class="btn btn-secondary btn-full">Use a Different Account</button>
+      </div>
+
+      <!-- New user / login view -->
+      <div id="setupView">
+        <h2>Get started</h2>
+        <p class="subtitle">Enter your details to set up your dashboard</p>
+        <div class="alert alert-error" id="errorMsg"></div>
+        <form id="setupForm">
+          <div class="form-group">
+            <label for="name">Full Name</label>
+            <input type="text" id="name" placeholder="Your full name" required />
+          </div>
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" placeholder="you@example.com" required />
+          </div>
+          <div class="form-group">
+            <label for="salary">Monthly Salary (₹)</label>
+            <input type="number" id="salary" placeholder="e.g. 50000" min="0" step="1000" required />
+          </div>
+          <button type="submit" class="btn btn-primary" id="setupBtn">Launch Dashboard →</button>
+        </form>
+        <p style="margin-top:1.5rem;font-size:.8rem;color:var(--text3);text-align:center">
+          Your data stays in your browser. Nothing is sent to any server.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const stored = localStorage.getItem('ft_user');
+  if (stored) {
+    const u = JSON.parse(stored);
+    document.getElementById('setupView').style.display = 'none';
+    document.getElementById('returningView').style.display = 'block';
+    document.getElementById('returnName').textContent  = u.name;
+    document.getElementById('returnEmail').textContent = u.email;
+    document.getElementById('returnAvatar').textContent = u.name.charAt(0).toUpperCase();
+  }
+
+  function clearUser() {
+    if (confirm('This will clear all your local data. Continue?')) {
+      localStorage.clear();
+      location.reload();
+    }
+  }
+
+  document.getElementById('setupForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const btn    = document.getElementById('setupBtn');
+    const errEl  = document.getElementById('errorMsg');
+    const name   = document.getElementById('name').value.trim();
+    const email  = document.getElementById('email').value.trim();
+    const salary = parseFloat(document.getElementById('salary').value) || 0;
+
+    if (!name || !email) {
+      errEl.textContent = 'Please fill in all fields.';
+      errEl.classList.add('show');
+      return;
+    }
+
+    btn.textContent = 'Setting up...';
+    btn.disabled = true;
+
+    localStorage.setItem('ft_user', JSON.stringify({ name, email, salary }));
+    window.location.href = 'dashboard.html';
+  });
+</script>
+</body>
+</html>

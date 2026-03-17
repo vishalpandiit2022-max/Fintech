@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Investment Advisory – FinTech</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+<div class="app-layout">
+
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <div class="logo-icon">💹</div>
+      <span class="logo-text">FinTech</span>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="dashboard.html" class="nav-item"><span class="nav-icon">🏠</span><span>Dashboard</span></a>
+      <a href="expenses.html"  class="nav-item"><span class="nav-icon">💳</span><span>Expenses</span></a>
+      <a href="savings.html"   class="nav-item"><span class="nav-icon">🎯</span><span>Savings Goals</span></a>
+      <a href="advisory.html"  class="nav-item"><span class="nav-icon">🤖</span><span>Investment Advisory</span></a>
+      <a href="profile.html"   class="nav-item"><span class="nav-icon">👤</span><span>Profile</span></a>
+    </nav>
+    <div class="sidebar-bottom">
+      <button class="logout-btn" onclick="doLogout()"><span>🚪</span><span>Logout</span></button>
+    </div>
+  </aside>
+
+  <div class="main-content">
+    <header class="topbar">
+      <div class="topbar-left"><h1>Investment Advisory</h1></div>
+      <div class="topbar-right">
+        <div class="search-bar"><span>🔍</span><input type="text" placeholder="Search..." /></div>
+        <div class="user-avatar" id="userAvatar">?</div>
+      </div>
+    </header>
+    <main class="page-content">
+
+      <div class="advisory-card">
+        <div class="advisory-header">
+          <div class="advisory-icon">🤖</div>
+          <div>
+            <div class="advisory-title">AI Spending Analysis</div>
+            <div class="advisory-desc">Analyze your spending patterns and get personalised financial suggestions.</div>
+          </div>
+        </div>
+        <button class="btn btn-primary btn-sm btn-inline" id="analyzeBtn" onclick="analyzeSpending()">
+          🔍 Analyze My Spending
+        </button>
+        <div class="analysis-results" id="analysisResults">
+          <h4 class="section-title mt-2">Spending Insights</h4>
+          <div id="insightsList"></div>
+        </div>
+      </div>
+
+      <div class="chat-section">
+        <h3 class="section-title">Financial Assistant</h3>
+        <div class="chat-messages" id="chatMessages">
+          <div class="chat-msg bot">
+            👋 Hello! I'm your financial assistant. Ask me anything about budgeting, saving, or investing in India.
+          </div>
+        </div>
+        <div class="chat-input-row">
+          <input type="text" id="chatInput" placeholder="Ask a question about your finances..." />
+          <button class="btn btn-primary btn-sm btn-inline" onclick="sendChat()">Send</button>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+<script src="js/advisory.js"></script>
+</body>
+</html>

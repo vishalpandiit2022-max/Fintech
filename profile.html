@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Profile – FinTech</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+<div class="app-layout">
+
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <div class="logo-icon">💹</div>
+      <span class="logo-text">FinTech</span>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="dashboard.html" class="nav-item"><span class="nav-icon">🏠</span><span>Dashboard</span></a>
+      <a href="expenses.html"  class="nav-item"><span class="nav-icon">💳</span><span>Expenses</span></a>
+      <a href="savings.html"   class="nav-item"><span class="nav-icon">🎯</span><span>Savings Goals</span></a>
+      <a href="advisory.html"  class="nav-item"><span class="nav-icon">🤖</span><span>Investment Advisory</span></a>
+      <a href="profile.html"   class="nav-item"><span class="nav-icon">👤</span><span>Profile</span></a>
+    </nav>
+    <div class="sidebar-bottom">
+      <button class="logout-btn" onclick="doLogout()"><span>🚪</span><span>Logout</span></button>
+    </div>
+  </aside>
+
+  <div class="main-content">
+    <header class="topbar">
+      <div class="topbar-left"><h1>Profile</h1></div>
+      <div class="topbar-right">
+        <div class="search-bar"><span>🔍</span><input type="text" placeholder="Search..." /></div>
+        <div class="user-avatar" id="userAvatar">?</div>
+      </div>
+    </header>
+    <main class="page-content">
+
+      <div style="max-width:600px">
+
+        <div class="card" style="margin-bottom:1.5rem;display:flex;align-items:center;gap:1.5rem">
+          <div class="profile-avatar" id="profileAvatar">?</div>
+          <div>
+            <div class="profile-name"  id="profileName">–</div>
+            <div class="profile-email" id="profileEmail">–</div>
+          </div>
+        </div>
+
+        <div class="card" style="margin-bottom:1.5rem">
+          <h3 class="section-title">Account Information</h3>
+          <div class="info-row">
+            <span class="info-label">Full Name</span>
+            <span class="info-value" id="infoName">–</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Email</span>
+            <span class="info-value" id="infoEmail">–</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Monthly Salary</span>
+            <span class="info-value" id="infoSalary">–</span>
+          </div>
+        </div>
+
+        <div class="card" style="margin-bottom:1.5rem">
+          <h3 class="section-title">Update Monthly Salary</h3>
+          <div class="alert alert-error"   id="salaryError"></div>
+          <div class="alert alert-success" id="salarySuccess"></div>
+          <form id="salaryForm">
+            <div class="form-group">
+              <label for="newSalary">New Monthly Salary (₹)</label>
+              <input type="number" id="newSalary" placeholder="e.g. 75000" min="0" step="1000" required />
+            </div>
+            <button type="submit" class="btn btn-primary btn-sm btn-inline">Update Salary</button>
+          </form>
+        </div>
+
+        <div class="card" style="border-color:rgba(239,68,68,.3)">
+          <h3 class="section-title" style="color:var(--red)">Danger Zone</h3>
+          <p style="font-size:.9rem;color:var(--text2);margin-bottom:1rem">
+            This will permanently delete all your expenses, savings goals, and profile data stored in this browser.
+          </p>
+          <button class="btn btn-danger" onclick="clearAllData()">🗑️ Clear All Data</button>
+        </div>
+
+      </div>
+
+    </main>
+  </div>
+</div>
+<script src="js/profile.js"></script>
+</body>
+</html>
